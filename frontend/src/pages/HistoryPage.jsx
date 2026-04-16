@@ -70,7 +70,7 @@ const HistoryPage = () => {
                   >
                     <div className="history-img-wrap">
                       <img
-                        src={item.imageUrl?.startsWith('http') ? item.imageUrl : `${BACKEND_URL}${item.imageUrl}`}
+                        src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${BACKEND_URL}${item.imageUrl}`}
                         alt={item.originalImageName}
                       />
                       <span className={`plant-status ${healthClass(item.analysisResults?.overall_health)}`}>

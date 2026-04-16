@@ -45,8 +45,12 @@ router.post('/', protect, upload.single('image'), async (req, res) => {
       };
     }
 
-    // Build image URL
-    const imageUrl = `/uploads/${req.file.filename}`;
+    // Build image URL using Base64 to survive Render's ephemeral disk wipes
+    const imageBase64 = fs.readFileSync(req.file.path, 'base64');
+    const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
+
+    // Clean up local temp file since we stored it in the DB
+    try { fs.unlinkSync(req.file.path); } catch (e) { console.error('Failed to clean up file:', e); }
 
     // Save to MongoDB
     const historyEntry = await AnalysisHistory.create({

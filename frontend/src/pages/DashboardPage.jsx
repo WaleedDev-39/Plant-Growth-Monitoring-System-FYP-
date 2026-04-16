@@ -106,7 +106,7 @@ const DashboardPage = () => {
             {recentHistory.map(item => (
               <div key={item._id} className="recent-thumb" onClick={() => navigate('/history')}>
                 <img
-                  src={item.imageUrl?.startsWith('http') ? item.imageUrl : `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.imageUrl}`}
+                  src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.imageUrl}`}
                   alt={item.originalImageName}
                 />
                 <div className="recent-thumb-label">

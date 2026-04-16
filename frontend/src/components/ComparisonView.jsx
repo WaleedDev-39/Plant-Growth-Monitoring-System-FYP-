@@ -5,7 +5,7 @@ const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const ComparisonView = ({ current, previous }) => {
   if (!current && !previous) return null;
 
-  const imgSrc = (url) => url?.startsWith('http') ? url : `${BACKEND_URL}${url}`;
+  const imgSrc = (url) => (url?.startsWith('http') || url?.startsWith('data:')) ? url : `${BACKEND_URL}${url}`;
   const fmtDate = (d) => new Date(d).toLocaleString();
 
   return (

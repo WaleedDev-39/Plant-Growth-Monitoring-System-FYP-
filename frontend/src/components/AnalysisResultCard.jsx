@@ -30,7 +30,7 @@ const AnalysisResultCard = ({ result, imageName, imageUrl, backendUrl = import.m
       {imageUrl && (
         <div className="result-image-thumb">
           <img
-            src={imageUrl.startsWith('http') ? imageUrl : `${backendUrl}${imageUrl}`}
+            src={(imageUrl?.startsWith('http') || imageUrl?.startsWith('data:')) ? imageUrl : `${backendUrl}${imageUrl}`}
             alt="Analyzed plant"
           />
         </div>
