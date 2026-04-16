@@ -46,7 +46,8 @@ router.post('/', protect, upload.single('image'), async (req, res) => {
     }
 
     // Build image URL
-    const imageUrl = `/uploads/${req.file.filename}`;
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+    const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
     // Save to MongoDB
     const historyEntry = await AnalysisHistory.create({

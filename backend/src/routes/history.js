@@ -11,12 +11,16 @@ router.get('/:userId', protect, async (req, res) => {
       return res.status(403).json({ success: false, message: 'Not authorized to view this history' });
     }
 
-    const history = await AnalysisHistory
-      .find({ userId: req.params.userId })
-      .sort({ createdAt: -1 })
-      .select('-__v');
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+    const historyWithAbsoluteUrls = history.map(item => {
+      const obj = item.toObject();
+      if (obj.imageUrl && !obj.imageUrl.startsWith('http')) {
+        obj.imageUrl = `${baseUrl}${obj.imageUrl}`;
+      }
+      return obj;
+    });
 
-    res.json({ success: true, count: history.length, data: history });
+    res.json({ success: true, count: history.length, data: historyWithAbsoluteUrls });
   } catch (error) {
     console.error('History fetch error:', error);
     res.status(500).json({ success: false, message: 'Error fetching analysis history' });
@@ -33,7 +37,12 @@ router.get('/item/:id', protect, async (req, res) => {
     if (item.userId.toString() !== req.user._id.toString()) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
-    res.json({ success: true, data: item });
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+    const obj = item.toObject();
+    if (obj.imageUrl && !obj.imageUrl.startsWith('http')) {
+      obj.imageUrl = `${baseUrl}${obj.imageUrl}`;
+    }
+    res.json({ success: true, data: obj });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error fetching analysis' });
   }
