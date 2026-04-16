@@ -8,7 +8,7 @@ const healthColors = {
 
 const severityColor = { mild: '#ff9800', moderate: '#e65100', severe: '#c62828' };
 
-const AnalysisResultCard = ({ result, imageName, imageUrl, backendUrl = 'http://localhost:5000' }) => {
+const AnalysisResultCard = ({ result, imageName, imageUrl, backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000' }) => {
   if (!result) return null;
 
   const health = healthColors[result.overall_health] || healthColors['Healthy'];
