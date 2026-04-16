@@ -7,3 +7,4 @@ export const uploadImage = (formData) =>
 
 export const getHistory = (userId) => axiosInstance.get(`/api/history/${userId}`);
 export const getHistoryItem = (id) => axiosInstance.get(`/api/history/item/${id}`);
+export const deleteHistoryItem = (id) => axiosInstance.delete(`/api/history/item/${id}`);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import AnalysisResultCard from '../components/AnalysisResultCard';
-import { getHistory } from '../api/upload';
+import { getHistory, deleteHistoryItem } from '../api/upload';
+import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
 const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -25,6 +26,19 @@ const HistoryPage = () => {
     };
     if (user) fetchHistory();
   }, [user]);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this analysis permanently?')) return;
+    try {
+      await deleteHistoryItem(id);
+      toast.success('Analysis deleted successfully');
+      setHistory(prev => prev.filter(item => item._id !== id));
+      if (selected?._id === id) setSelected(null);
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to delete analysis');
+    }
+  };
 
   const healthClass = (h) => {
     if (h === 'Healthy') return 'status-healthy';
@@ -95,11 +109,22 @@ const HistoryPage = () => {
             {/* Right: detail panel */}
             <div className="history-detail-panel">
               {selected ? (
-                <AnalysisResultCard
-                  result={selected.analysisResults}
-                  imageName={selected.originalImageName}
-                  imageUrl={selected.imageUrl}
-                />
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '12px' }}>
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); handleDelete(selected._id); }} 
+                      className="btn btn-sm" 
+                      style={{ backgroundColor: '#ffebee', color: '#c62828', border: '1px solid #ffcdd2' }}
+                    >
+                      <i className="fas fa-trash-alt"></i> Delete Analysis
+                    </button>
+                  </div>
+                  <AnalysisResultCard
+                    result={selected.analysisResults}
+                    imageName={selected.originalImageName}
+                    imageUrl={selected.imageUrl}
+                  />
+                </div>
               ) : (
                 <div className="results-placeholder">
                   <div className="placeholder-icon">

@@ -38,5 +38,27 @@ router.get('/item/:id', protect, async (req, res) => {
     res.status(500).json({ success: false, message: 'Error fetching analysis' });
   }
 });
+// DELETE /api/history/item/:id — Delete single analysis
+router.delete('/item/:id', protect, async (req, res) => {
+  try {
+    const item = await AnalysisHistory.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Analysis not found' });
+    }
+    if (item.userId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Not authorized' });
+    }
+    
+    await item.deleteOne();
+    
+    // Also delete associated alerts
+    const Alert = require('../models/Alert');
+    await Alert.deleteMany({ analysisId: item._id });
+    
+    res.json({ success: true, message: 'Analysis deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error deleting analysis' });
+  }
+});
 
 module.exports = router;
