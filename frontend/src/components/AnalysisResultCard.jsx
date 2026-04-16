@@ -32,6 +32,7 @@ const AnalysisResultCard = ({ result, imageName, imageUrl, backendUrl = import.m
           <img
             src={(imageUrl?.startsWith('http') || imageUrl?.startsWith('data:')) ? imageUrl : `${backendUrl}${imageUrl}`}
             alt="Analyzed plant"
+            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/e8f5e9/2e7d32?text=Image+Archived'; }}
           />
         </div>
       )}

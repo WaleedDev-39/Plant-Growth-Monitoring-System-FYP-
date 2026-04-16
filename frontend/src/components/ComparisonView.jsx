@@ -18,7 +18,7 @@ const ComparisonView = ({ current, previous }) => {
           </div>
           {previous ? (
             <>
-              <img src={imgSrc(previous.imageUrl)} alt="Previous" className="comparison-img" />
+              <img src={imgSrc(previous.imageUrl)} alt="Previous" className="comparison-img" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/e8f5e9/2e7d32?text=Image+Archived'; }} />
               <div className="comparison-meta">
                 <span className={`health-pill health-${previous.analysisResults?.overall_health?.replace(' ', '-').toLowerCase()}`}>
                   {previous.analysisResults?.overall_health}
@@ -44,7 +44,7 @@ const ComparisonView = ({ current, previous }) => {
           </div>
           {current ? (
             <>
-              <img src={imgSrc(current.imageUrl)} alt="Current" className="comparison-img" />
+              <img src={imgSrc(current.imageUrl)} alt="Current" className="comparison-img" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/e8f5e9/2e7d32?text=Image+Archived'; }} />
               <div className="comparison-meta">
                 <span className={`health-pill health-${current.analysisResults?.overall_health?.replace(' ', '-').toLowerCase()}`}>
                   {current.analysisResults?.overall_health}

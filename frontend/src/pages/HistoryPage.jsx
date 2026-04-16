@@ -72,6 +72,7 @@ const HistoryPage = () => {
                       <img
                         src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${BACKEND_URL}${item.imageUrl}`}
                         alt={item.originalImageName}
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/68x52/e8f5e9/2e7d32?text=NA'; }}
                       />
                       <span className={`plant-status ${healthClass(item.analysisResults?.overall_health)}`}>
                         {item.analysisResults?.overall_health}

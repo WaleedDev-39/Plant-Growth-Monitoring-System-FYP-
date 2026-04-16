@@ -108,6 +108,7 @@ const DashboardPage = () => {
                 <img
                   src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.imageUrl}`}
                   alt={item.originalImageName}
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/130x90/e8f5e9/2e7d32?text=Archived'; }}
                 />
                 <div className="recent-thumb-label">
                   <span className={`plant-status status-${item.analysisResults?.overall_health === 'Healthy' ? 'healthy' : item.analysisResults?.overall_health === 'At risk' ? 'warning' : 'critical'}`}>
