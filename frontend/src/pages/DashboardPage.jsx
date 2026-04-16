@@ -106,9 +106,9 @@ const DashboardPage = () => {
             {recentHistory.map(item => (
               <div key={item._id} className="recent-thumb" onClick={() => navigate('/history')}>
                 <img
-                  src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.imageUrl}`}
+                  src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/${item.imageUrl.replace(/^\//, '')}`}
                   alt={item.originalImageName}
-                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/130x90/e8f5e9/2e7d32?text=Archived'; }}
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iOTAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlOGY1ZTkiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMmU3ZDMyIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BcmNoaXZlZDwvdGV4dD48L3N2Zz4='; }}
                 />
                 <div className="recent-thumb-label">
                   <span className={`plant-status status-${item.analysisResults?.overall_health === 'Healthy' ? 'healthy' : item.analysisResults?.overall_health === 'At risk' ? 'warning' : 'critical'}`}>

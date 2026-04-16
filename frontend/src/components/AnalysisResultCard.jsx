@@ -30,9 +30,9 @@ const AnalysisResultCard = ({ result, imageName, imageUrl, backendUrl = import.m
       {imageUrl && (
         <div className="result-image-thumb">
           <img
-            src={(imageUrl?.startsWith('http') || imageUrl?.startsWith('data:')) ? imageUrl : `${backendUrl}${imageUrl}`}
+            src={(imageUrl?.startsWith('http') || imageUrl?.startsWith('data:')) ? imageUrl : `${backendUrl.replace(/\/$/, '')}/${imageUrl.replace(/^\//, '')}`}
             alt="Analyzed plant"
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/e8f5e9/2e7d32?text=Image+Archived'; }}
+            onError={(e) => { e.target.onerror = null; e.target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZThmNWU5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzJlN2QzMiIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2UgQXJjaGl2ZWQ8L3RleHQ+PC9zdmc+'; }}
           />
         </div>
       )}

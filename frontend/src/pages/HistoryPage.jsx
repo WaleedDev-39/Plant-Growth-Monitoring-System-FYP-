@@ -70,9 +70,9 @@ const HistoryPage = () => {
                   >
                     <div className="history-img-wrap">
                       <img
-                        src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${BACKEND_URL}${item.imageUrl}`}
+                        src={(item.imageUrl?.startsWith('http') || item.imageUrl?.startsWith('data:')) ? item.imageUrl : `${BACKEND_URL.replace(/\/$/, '')}/${item.imageUrl.replace(/^\//, '')}`}
                         alt={item.originalImageName}
-                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/68x52/e8f5e9/2e7d32?text=NA'; }}
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2OCIgaGVpZ2h0PSI1MiI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2U4ZjVlOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMyZTdkMzIiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk5BPC90ZXh0Pjwvc3ZnPg=='; }}
                       />
                       <span className={`plant-status ${healthClass(item.analysisResults?.overall_health)}`}>
                         {item.analysisResults?.overall_health}
