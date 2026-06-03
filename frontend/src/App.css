@@ -195,7 +195,20 @@ body {
 }
 .nav-label { white-space: nowrap; }
 
-.sidebar-bottom { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+.sidebar-bottom { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); transition: all var(--transition); }
+.sidebar-logout-btn {
+  background: rgba(255,255,255,0.1); color: #fff;
+  border: 1px solid rgba(255,255,255,0.2); width: 100%;
+  justify-content: center; border-radius: var(--radius);
+  padding: 10px; font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all var(--transition); font-family: inherit; font-weight: 600;
+}
+.sidebar-logout-btn:hover { background: rgba(198,40,40,0.85); border-color: transparent; transform: translateY(-1px); }
+.sidebar.collapsed .sidebar-logout-btn {
+  padding: 10px 0; border-radius: 50%; width: 40px; height: 40px; margin: 0 auto; justify-content: center;
+}
+.sidebar.collapsed .sidebar-bottom { padding: 12px 0; display: flex; justify-content: center; }
 
 /* â”€â”€ Main Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .app { display: flex; min-height: 100vh; }
@@ -540,7 +553,7 @@ body {
 .history-thumb.selected { background: #e8f5e9; border-left: 3px solid var(--primary); }
 .history-img-wrap { position: relative; flex-shrink: 0; }
 .history-img-wrap img { width: 68px; height: 52px; object-fit: cover; border-radius: var(--radius); }
-.history-img-wrap .plant-status { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 10px; padding: 2px 7px; }
+.history-img-wrap .plant-status { position: absolute; top: auto; right: auto; bottom: -4px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 10px; padding: 2px 7px; }
 .history-thumb-info { flex: 1; min-width: 0; }
 .thumb-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .thumb-stage { font-size: 12px; color: var(--primary); font-weight: 500; }

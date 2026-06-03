@@ -12,6 +12,8 @@ import HistoryPage from './pages/HistoryPage';
 import AlertsPage from './pages/AlertsPage';
 import ProfilePage from './pages/ProfilePage';
 import PlantDetailPage from './pages/PlantDetailPage';
+import PlantsPage from './pages/PlantsPage';
+import AnalyticsPage from './pages/AnalyticsPage';
 import './App.css';
 
 const AppLayout = ({ children }) => (
@@ -80,22 +82,12 @@ function App() {
           } />
           <Route path="/plants" element={
             <ProtectedRoute>
-              <AppLayout>
-                <div className="page-content">
-                  <h2>My Plants</h2>
-                  <p>All plants list coming soon...</p>
-                </div>
-              </AppLayout>
+              <AppLayout><PlantsPage /></AppLayout>
             </ProtectedRoute>
           } />
           <Route path="/analytics" element={
             <ProtectedRoute>
-              <AppLayout>
-                <div className="page-content">
-                  <h2>Analytics</h2>
-                  <p>Detailed analytics coming soon...</p>
-                </div>
-              </AppLayout>
+              <AppLayout><AnalyticsPage /></AppLayout>
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />

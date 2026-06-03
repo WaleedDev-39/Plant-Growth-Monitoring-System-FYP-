@@ -13,21 +13,6 @@ services:
     networks:
       - plant-net
 
-  # Python AI Service
-  ai-service:
-    build:
-      context: ./ai-service
-      dockerfile: Dockerfile
-    container_name: plant-ai-service
-    restart: unless-stopped
-    ports:
-      - "8000:8000"
-    environment:
-      - PORT=8000
-      - MODEL_PATH=./model/plant_model.h5
-    networks:
-      - plant-net
-
   # Node.js Backend
   backend:
     build:
@@ -41,7 +26,6 @@ services:
       - ./backend/.env
     depends_on:
       - mongo
-      - ai-service
     volumes:
       - ./backend/uploads:/app/uploads
     networks:

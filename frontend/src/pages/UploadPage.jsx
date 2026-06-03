@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import ImageUpload from '../components/ImageUpload';
 import AnalysisResultCard from '../components/AnalysisResultCard';
-import ComparisonView from '../components/ComparisonView';
-import { uploadImage, getHistory } from '../api/upload';
+import { uploadImage } from '../api/upload';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -11,21 +10,7 @@ const UploadPage = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [latestResult, setLatestResult] = useState(null);
-  const [previousResult, setPreviousResult] = useState(null);
   const [latestHistory, setLatestHistory] = useState(null);
-
-  // Fetch the most recent previous result for comparison
-  useEffect(() => {
-    const fetchLatest = async () => {
-      try {
-        const res = await getHistory(user._id);
-        if (res.data.data && res.data.data.length > 0) {
-          setPreviousResult(res.data.data[0]);
-        }
-      } catch (e) { /* silent */ }
-    };
-    if (user) fetchLatest();
-  }, [user]);
 
   const handleUpload = async (formData) => {
     setLoading(true);
@@ -78,12 +63,6 @@ const UploadPage = () => {
                   imageName={latestHistory?.originalImageName}
                   imageUrl={latestHistory?.imageUrl}
                 />
-                {previousResult && (
-                  <ComparisonView
-                    current={latestHistory}
-                    previous={previousResult}
-                  />
-                )}
               </>
             ) : (
               <div className="results-placeholder">

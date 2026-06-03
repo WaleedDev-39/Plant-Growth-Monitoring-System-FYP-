@@ -4,10 +4,9 @@ A complete full-stack IoT / Web application for monitoring plant health using pr
 
 ## Project Structure
 
-This is a 3-tier system:
+This is a full-stack system:
 - **`frontend/`**: React + Vite single-page application.
-- **`backend/`**: Node.js + Express API acting as the central hub connecting the frontend, the AI service, and MongoDB.
-- **`ai-service/`**: Python + FastAPI service running the machine learning models.
+- **`backend/`**: Node.js + Express API acting as the central hub connecting the frontend, MongoDB, and the Groq Cloud Vision AI service.
 
 ## Prerequisites
 
@@ -40,24 +39,7 @@ If you prefer to run services manually on your host machine:
 ### 1. MongoDB Setup
 Ensure MongoDB is running locally on port `27017` or update the `MONGODB_URI` environment variable in `backend/.env`.
 
-### 2. AI Service (Port 8000)
-Open a terminal in `ai-service`:
-```bash
-cd ai-service
-python -m venv venv
-
-# Activate venv:
-# Windows:
-venv\Scripts\activate
-# Mac/Linux:
-source venv/bin/activate
-
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-```
-*Note: A mock AI response engine runs by default. To use a real model, place your `.h5` or `.pt` model file at `ai-service/model/plant_model.h5` and set `MODEL_PATH` in `.env` accordingly.*
-
-### 3. Backend Service (Port 5000)
+### 2. Backend Service (Port 5000)
 Open a new terminal in `backend`:
 ```bash
 cd backend
@@ -65,7 +47,7 @@ npm install
 npm run dev
 ```
 
-### 4. Frontend Application (Port 5173)
+### 3. Frontend Application (Port 5173)
 Open a new terminal in `frontend`:
 ```bash
 cd frontend
